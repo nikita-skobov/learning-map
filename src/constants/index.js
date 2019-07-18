@@ -1,0 +1,2 @@
+export const LESSON_SELECTED = 'LESSON_SELECTED'
+export const LESSON_CLOSED = 'LESSON_CLOSED'
