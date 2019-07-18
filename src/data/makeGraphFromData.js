@@ -32,7 +32,7 @@ export function formatDataForCytoscape(obj) {
 
 export function makeGraph(options, cb) {
   const elements = options.cytoData
-  const { nodeObject } = options.sourceData
+  const nodeObject = options.sourceData
 
   const defaultBounds = {
     x1: 10,

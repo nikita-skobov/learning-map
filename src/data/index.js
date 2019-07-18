@@ -1,6 +1,6 @@
 // in the future, real data will be here.
 // for now, it will simply use the sampleNodes file.
-const sampleNodes = require('./sampleNodes')
+import sampleNodes from './sampleNodes'
 
 const data = {
   data: sampleNodes,
