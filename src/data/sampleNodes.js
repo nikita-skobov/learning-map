@@ -35,4 +35,4 @@ const obj = {
   },
 }
 
-module.exports = obj
+export default obj

@@ -1,6 +1,6 @@
 const cytoscape = require('cytoscape')
 
-function formatDataForCytoscape(obj) {
+export function formatDataForCytoscape(obj) {
   const nodes = Object.keys(obj)
   const output = []
 
@@ -30,7 +30,7 @@ function formatDataForCytoscape(obj) {
   return output
 }
 
-function makeGraph(options, cb) {
+export function makeGraph(options, cb) {
   const elements = options.cytoData
   const { nodeObject } = options.sourceData
 
@@ -96,7 +96,7 @@ function makeGraph(options, cb) {
   })
 }
 
-function makeGraphFromData(opts, cb) {
+export function makeGraphFromData(opts, cb) {
   const options = { ...opts }
   const { data } = options
   delete options.data
@@ -106,11 +106,4 @@ function makeGraphFromData(opts, cb) {
   options.sourceData = sourceData
   options.cytoData = cytoData
   makeGraph(options, cb)
-}
-
-
-module.exports = {
-  makeGraph,
-  makeGraphFromData,
-  formatDataForCytoscape,
 }
