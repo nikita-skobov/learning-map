@@ -1,0 +1,46 @@
+{
+  "name": "learning-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "scripts": {
+    "test-CI": "cross-env CI=true react-scripts test --coverage --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/serviceWorker.js",
+    "test": "react-scripts test --verbose false",
+    "build": "cross-env GENERATE_SOURCEMAP=false PUBLIC_URL='/' react-scripts build",
+    "start": "react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikita-skobov/learning-map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikita-skobov/learning-map/issues"
+  },
+  "homepage": "https://github.com/nikita-skobov/learning-map#readme",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "jest-fetch-mock": "^2.1.2",
+    "redux-mock-store": "^1.5.3"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-scripts": "^3.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+  }
+}
