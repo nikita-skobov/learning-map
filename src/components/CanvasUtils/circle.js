@@ -5,6 +5,7 @@ const textScale = 0.3
 const textColor = 0xffffff
 const textFontSize = 80
 const verticeColor = 0x007d8c
+const selectedTint = 0x00aa88
 const textMarginMultiplier = 30
 
 const g = new PIXI.Graphics()
@@ -30,6 +31,19 @@ export function makeCircleSprite(vertice, name, that) {
   spr.addListener('pointerdown', (a) => {
     const { id } = a.currentTarget
     const highlightIds = []
+
+    that.verticeList.forEach((vertice) => {
+      const lastChild = vertice.children.length - 1
+      if (lastChild > -1) {
+        // eslint-disable-next-line
+        vertice.getChildAt(0).tint = 0xffffff
+        // reset to untinted
+      }
+    })
+
+    a.currentTarget.getChildAt(0).tint = selectedTint
+    // tint current vertice
+
     that.nodeMap[id].forEach((edgeSprite) => {
       highlightIds.push(edgeSprite.id)
     })

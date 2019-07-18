@@ -31,6 +31,15 @@ export function makeBackgroundBox(that) {
       // eslint-disable-next-line
       child.alpha = that.edgeAlphaMin
     })
+
+    that.verticeList.forEach((vertice) => {
+      const lastChild = vertice.children.length - 1
+      if (lastChild > -1) {
+        // eslint-disable-next-line
+        vertice.getChildAt(0).tint = 0xffffff
+        // reset to untinted
+      }
+    })
   })
 
   return backgroundBox
