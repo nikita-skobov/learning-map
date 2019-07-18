@@ -26,6 +26,9 @@ export class Canvas extends Component {
     this.verticeContainer = undefined
     this.edgeAlphaMin = 0.1
     this.edgeAlphaMax = 0.5
+    this.tillingAlpha = 0.3
+    this.tillingOffsetX = 0.1
+    this.tillingOffsetY = 0.3
     this.verticeList = []
     this.edgeList = []
     this.nodeMap = {}
@@ -52,17 +55,18 @@ export class Canvas extends Component {
       worldHeight: window.innerHeight,
       interaction: this.app.renderer.plugins.interaction,
     })
+
+    // add tiling sprite as background
     const bTexture = PIXI.Texture.from(document.getElementById('my-img'))
     const tillingSprite = new PIXI.TilingSprite(
       bTexture,
       window.innerWidth,
       window.innerHeight,
     )
-    tillingSprite.alpha = 0.3
-
+    tillingSprite.alpha = this.tillingAlpha
     this.app.ticker.add(() => {
-      tillingSprite.tilePosition.x += 0.1
-      tillingSprite.tilePosition.y += 0.3
+      tillingSprite.tilePosition.x += this.tillingOffsetX
+      tillingSprite.tilePosition.y += this.tillingOffsetY
     })
 
     this.app.stage.addChild(tillingSprite)
