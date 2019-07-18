@@ -4,13 +4,12 @@ import { connect } from 'react-redux'
 import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 
-import { has } from '../utilities'
 import { makeGraphFromData } from '../data/makeGraphFromData'
 import data from '../data/index'
 import { makeArrowSprite } from './CanvasUtils/arrow'
 import fillNodeMap from './CanvasUtils/fillNodeMap'
 import { makeCircleSprite, makeCircleText } from './CanvasUtils/circle'
-import makeBackgroundBox from './CanvasUtils/backgroundBox'
+import { makeBackgroundBox, resetBackgroundBox } from './CanvasUtils/backgroundBox'
 
 
 export class Canvas extends Component {
@@ -26,8 +25,13 @@ export class Canvas extends Component {
     this.verticeList = []
     this.edgeList = []
     this.nodeMap = {}
+    this.oldBound = 1000
+    // the graph making module uses 1000 as a default width/height.
+    // TODO: make this dynamic based on the graph data.
 
     this.initializeSprites = this.initializeSprites.bind(this)
+    this.alignSprites = this.alignSprites.bind(this)
+    this.resetViewport = this.resetViewport.bind(this)
   }
 
   componentDidMount() {
@@ -68,11 +72,31 @@ export class Canvas extends Component {
         data: data.data,
       }, this.initializeSprites)
     }
+
+    window.addEventListener('resize', () => {
+      this.viewport.resize(
+        this.app.view.width,
+        this.app.view.height,
+        this.app.view.width,
+        this.app.view.height,
+      )
+
+      resetBackgroundBox(backgroundBox, this.viewport)
+
+      this.alignSprites()
+      this.resetViewport()
+    })
   }
 
   shouldComponentUpdate() {
     // we never want to update a canvas.
     return false
+  }
+
+  resetViewport() {
+    this.viewport.fitWorld()
+    this.viewport.setZoom(0.9)
+    this.viewport.moveCenter(this.viewport.worldWidth / 2, this.viewport.worldHeight / 2)
   }
 
   initializeSprites(nodeObject) {
@@ -110,6 +134,26 @@ export class Canvas extends Component {
         this.verticeList.push(this.verticeContainer.addChild(text))
       }
     })
+
+    this.viewport.setZoom(0.9)
+    this.alignSprites()
+  }
+
+  alignSprites() {
+    this.viewport.moveCenter(this.viewport.worldWidth / 2, this.viewport.worldHeight / 2)
+    const newBound = this.app.view.width >= this.app.view.height
+      ? this.app.view.height : this.app.view.width
+
+    const ratio = newBound / this.oldBound
+    this.edgeList.forEach((spr) => {
+      // eslint-disable-next-line
+      spr.scale.x *= ratio; spr.scale.y *= ratio; spr.x *= ratio; spr.y *= ratio
+    })
+    this.verticeList.forEach((spr) => {
+      // eslint-disable-next-line
+      spr.scale.x *= ratio; spr.scale.y *= ratio; spr.x *= ratio; spr.y *= ratio
+    })
+    this.oldBound = newBound
   }
 
   render() {
