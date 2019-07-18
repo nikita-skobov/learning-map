@@ -38,6 +38,9 @@ export function makeBackgroundBox(that) {
         // eslint-disable-next-line
         vertice.getChildAt(0).tint = 0xffffff
         // reset to untinted
+
+        // eslint-disable-next-line
+        vertice.clicks = 0
       }
     })
   })

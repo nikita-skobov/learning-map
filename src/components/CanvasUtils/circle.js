@@ -25,22 +25,39 @@ export function makeCircleSprite(vertice, name, that) {
   spr.x = vertice.x
   spr.y = vertice.y
   spr.id = name
+  spr.clicks = 0
   spr.interactive = true
 
 
   spr.addListener('pointerdown', (a) => {
-    const { id } = a.currentTarget
+    const { id, clicks } = a.currentTarget
     const highlightIds = []
+    if (clicks === 0) {
+      // eslint-disable-next-line
+      a.currentTarget.clicks += 1
+    } else {
+      console.log(`you double clicked on ${id}`)
+      // eslint-disable-next-line
+      a.currentTarget.clicks = 0
+    }
 
-    that.verticeList.forEach((vertice) => {
-      const lastChild = vertice.children.length - 1
+    that.verticeList.forEach((v) => {
+      const lastChild = v.children.length - 1
       if (lastChild > -1) {
         // eslint-disable-next-line
-        vertice.getChildAt(0).tint = 0xffffff
+        v.getChildAt(0).tint = 0xffffff
         // reset to untinted
+
+        if (v.id !== id) {
+          // eslint-disable-next-line
+          v.clicks = 0
+          // set clicks to 0 on all other vertices
+        }
       }
     })
 
+
+    // eslint-disable-next-line
     a.currentTarget.getChildAt(0).tint = selectedTint
     // tint current vertice
 
