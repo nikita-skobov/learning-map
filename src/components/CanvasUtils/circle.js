@@ -39,6 +39,8 @@ export function makeCircleSprite(vertice, name, that) {
       console.log(`you double clicked on ${id}`)
       // eslint-disable-next-line
       a.currentTarget.clicks = 0
+
+      that.lessonSelected(id)
     }
 
     that.verticeList.forEach((v) => {

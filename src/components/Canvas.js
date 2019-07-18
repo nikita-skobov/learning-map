@@ -10,11 +10,15 @@ import { makeArrowSprite } from './CanvasUtils/arrow'
 import fillNodeMap from './CanvasUtils/fillNodeMap'
 import { makeCircleSprite, makeCircleText } from './CanvasUtils/circle'
 import { makeBackgroundBox, resetBackgroundBox } from './CanvasUtils/backgroundBox'
-
+import { lessonClosed, lessonSelected } from '../actions/lessonActions'
 
 export class Canvas extends Component {
   constructor(props) {
     super(props)
+
+    // dispatch functions:
+    this.lessonClosed = props.lessonClosed
+    this.lessonSelected = props.lessonSelected
 
     this.app = undefined
     this.viewport = undefined
@@ -161,4 +165,9 @@ export class Canvas extends Component {
   }
 }
 
-export default connect()(Canvas)
+const mapActionsToProps = {
+  lessonClosed,
+  lessonSelected,
+}
+
+export default connect(undefined, mapActionsToProps)(Canvas)

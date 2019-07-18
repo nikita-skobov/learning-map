@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 
 import './App.css'
 import ConnectedCanvas from './Canvas'
+import ConnectedLesson from './Lesson'
 
 export function App() {
   return (
     <div>
+      <ConnectedLesson />
       <ConnectedCanvas />
     </div>
   )
