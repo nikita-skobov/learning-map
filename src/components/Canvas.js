@@ -9,6 +9,7 @@ import { makeGraphFromData } from '../data/makeGraphFromData'
 import data from '../data/index'
 import { makeArrowSprite } from './CanvasUtils/arrow'
 import fillNodeMap from './CanvasUtils/fillNodeMap'
+import { makeCircleSprite, makeCircleText } from './CanvasUtils/circle'
 
 
 export class Canvas extends Component {
@@ -93,11 +94,6 @@ export class Canvas extends Component {
   initializeSprites(nodeObject) {
     const nodesAndEdges = Object.keys(nodeObject)
 
-    // constants for vertices
-    const radius = 25
-    const textScale = 0.3
-    const textMarginMultiplier = 30
-
     nodesAndEdges.forEach((nodeOrEdge) => {
       if (nodeOrEdge.charAt(0) === '[') {
         // this indicates it is an edge
@@ -119,47 +115,15 @@ export class Canvas extends Component {
         // otherwise it is a node
         const nodeName = nodeOrEdge
         const node = nodeObject[nodeName]
-        const g = new PIXI.Graphics()
-        g.lineStyle(0)
-        g.beginFill(this.verticeColor, 1)
-        g.drawCircle(0, 0, radius)
-        g.endFill()
-        const spr = new PIXI.Sprite()
-        spr.addChild(g)
-        spr.x = node.x
-        spr.y = node.y
-        this.verticeList.push(this.verticeContainer.addChild(spr))
-        const t = new PIXI.Text(nodeName, {
-          align: 'center',
-          fontSize: 80,
-          fill: '#ffffff',
-          stroke: '#ffffff',
-        })
-        t.scale.x = textScale
-        t.scale.y = textScale
-        t.x = spr.x - (t.width / 2)
-        t.y = spr.y + (spr.height * textMarginMultiplier)
-        this.verticeList.push(this.verticeContainer.addChild(t))
+        const spr = makeCircleSprite(node, nodeName, this)
+        // create a sprite with a circle graphic representing
+        // the vertice. fills in position and the name is the id.
 
-        spr.interactive = true
-        spr.id = nodeName
-        spr.addListener('pointerdown', (a) => {
-          const { id } = a.currentTarget
-          const highlightIds = []
-          this.nodeMap[id].forEach((edgeSprite) => {
-            highlightIds.push(edgeSprite.id)
-          })
-          this.edgeContainer.children.forEach((child) => {
-            if (highlightIds.indexOf(child.id) === -1) {
-              // current child is one we DO NOT want to highlight
-              // eslint-disable-next-line
-              child.alpha = this.edgeAlphaMin
-            } else {
-              // eslint-disable-next-line
-              child.alpha = this.edgeAlphaMax
-            }
-          })
-        })
+        const text = makeCircleText(nodeName, spr)
+        // calculate text position based on sprite position
+
+        this.verticeList.push(this.verticeContainer.addChild(spr))
+        this.verticeList.push(this.verticeContainer.addChild(text))
       }
     })
   }
