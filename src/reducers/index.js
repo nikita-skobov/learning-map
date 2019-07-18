@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
-import { sampleReducer } from './sample'
+import { sampleReducer, initialState as sampleReducerState } from './sample'
 
-export default combineReducers({
+export const reducers = combineReducers({
   sample: sampleReducer,
 })
+
+export const initialStates = {
+  sample: sampleReducerState,
+}
