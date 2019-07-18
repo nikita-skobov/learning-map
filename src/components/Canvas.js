@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 
-import { has, dotProduct } from '../utilities'
+import { has } from '../utilities'
 import { makeGraphFromData } from '../data/makeGraphFromData'
 import data from '../data/index'
+import { makeArrowSprite } from './CanvasUtils/arrow'
+import fillNodeMap from './CanvasUtils/fillNodeMap'
 
 
 export class Canvas extends Component {
@@ -91,13 +93,6 @@ export class Canvas extends Component {
   initializeSprites(nodeObject) {
     const nodesAndEdges = Object.keys(nodeObject)
 
-    // constants for edges
-    const arrowLength = 100
-    const arrowBase = 10
-    const arrowTipLength = 0.6
-    const halfArrowBase = arrowBase / 2
-    const halfArrowTip = arrowTipLength / 2
-
     // constants for vertices
     const radius = 25
     const textScale = 0.3
@@ -108,49 +103,18 @@ export class Canvas extends Component {
         // this indicates it is an edge
         const edgeName = nodeOrEdge
         const edge = nodeObject[edgeName]
-        const arrowG = new PIXI.Graphics()
-        arrowG.beginFill(this.edgeColor)
-        arrowG.lineStyle(0)
-        arrowG.moveTo(0, -halfArrowBase)
-        arrowG.lineTo(arrowLength, -halfArrowTip)
-        arrowG.lineTo(arrowLength, halfArrowTip)
-        arrowG.lineTo(0, halfArrowBase)
-        arrowG.lineTo(0, -halfArrowBase)
-        arrowG.closePath()
-        arrowG.endFill()
-        const spr = new PIXI.Sprite()
-        spr.addChild(arrowG)
-        spr.x = edge.startX
-        spr.y = edge.startY
-        spr.width = edge.distance / arrowLength
-        spr.anchor.set(0, 0.5)
-        spr.alpha = this.edgeAlphaMin
-        spr.id = edgeName
+        const spr = makeArrowSprite(edge, this.edgeAlphaMin, edgeName)
+        // create a sprite with an arrow graphic representing the edge.
+        // fills in positions, and calculates rotation.
 
-        const vecU = [edge.distance, 0]
-        const vecV = [edge.endX - edge.startX, edge.endY - edge.startY]
-        const dotProd = dotProduct(vecU, vecV)
-        const cosTheta = dotProd / (edge.distance * edge.distance)
-        const theta = Math.acos(cosTheta)
-        const rotationDirection = edge.endY < edge.startY ? -1 : 1
-        spr.rotation = theta * rotationDirection
         this.edgeList.push(this.edgeContainer.addChild(spr))
+        // add to the edge container, and the output of addChild
+        // returns the child, so edgeList will contain the sprite as well.
 
-        let [start, end] = edgeName.split('-')
-        start = start.replace('[', '')
-        start = start.replace(']', '')
-        end = end.replace('[', '')
-        end = end.replace(']', '')
-        if (has.call(this.nodeMap, end)) {
-          this.nodeMap[end].push(spr)
-        } else {
-          this.nodeMap[end] = [spr]
-        }
-        if (has.call(this.nodeMap, start)) {
-          this.nodeMap[start].push(spr)
-        } else {
-          this.nodeMap[start] = [spr]
-        }
+        fillNodeMap(this.nodeMap, edgeName, spr)
+        // for each edge, add an entry to a map such that every vertice
+        // contains a list of vertices it is connected to. used for
+        // selection highlighting
       } else {
         // otherwise it is a node
         const nodeName = nodeOrEdge
