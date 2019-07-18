@@ -5,6 +5,8 @@ import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 
 import { has, dotProduct } from '../utilities'
+import { makeGraphFromData } from '../data/makeGraphFromData'
+import data from '../data/index'
 
 
 export class Canvas extends Component {
@@ -13,10 +15,8 @@ export class Canvas extends Component {
 
     this.app = undefined
     this.viewport = undefined
-  }
-  shouldComponentUpdate() {
-    // we never want to update a canvas.
-    return false
+
+    this.initializeSprites = this.initializeSprites.bind(this)
   }
 
   componentDidMount() {
@@ -41,6 +41,23 @@ export class Canvas extends Component {
       .pinch()
       .wheel({ percent: 0.05, smooth: 10 })
       .decelerate()
+
+    if (data.formatted) {
+      this.initializeSprites(data.data)
+    } else {
+      makeGraphFromData({
+        data: data.data,
+      }, this.initializeSprites)
+    }
+  }
+
+  shouldComponentUpdate() {
+    // we never want to update a canvas.
+    return false
+  }
+
+  initializeSprites(nodeObject) {
+    console.log(nodeObject)
   }
 
   render() {
