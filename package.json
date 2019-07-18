@@ -35,6 +35,9 @@
     "redux-mock-store": "^1.5.3"
   },
   "dependencies": {
+    "cytoscape": "^3.8.1",
+    "pixi-viewport": "^4.0.1",
+    "pixi.js": "^5.0.4",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
     "react-dom": "^16.8.6",
