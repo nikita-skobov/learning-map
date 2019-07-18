@@ -52,7 +52,20 @@ export class Canvas extends Component {
       worldHeight: window.innerHeight,
       interaction: this.app.renderer.plugins.interaction,
     })
+    const bTexture = PIXI.Texture.from(document.getElementById('my-img'))
+    const tillingSprite = new PIXI.TilingSprite(
+      bTexture,
+      window.innerWidth,
+      window.innerHeight,
+    )
+    tillingSprite.alpha = 0.3
 
+    this.app.ticker.add(() => {
+      tillingSprite.tilePosition.x += 0.1
+      tillingSprite.tilePosition.y += 0.3
+    })
+
+    this.app.stage.addChild(tillingSprite)
     this.app.stage.addChild(this.viewport)
     this.edgeContainer = new PIXI.Container()
     this.verticeContainer = new PIXI.Container()
