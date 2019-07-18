@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 // import { Route, Switch } from 'react-router-dom'
 
 import './App.css'
+import ConnectedCanvas from './Canvas'
 
 export function App() {
   return (
     <div>
-      <h1>Sample App</h1>
+      <ConnectedCanvas />
     </div>
   )
 }
