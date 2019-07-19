@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import katex from 'katex'
 
-function getSubstitutedSpan(key, substitutionObj) {
+function getSubstitutedSpan(key, substitutionObj, num) {
   if (key && key.charAt(0) === '\\') {
     // implicit katex
     const renderedStr = katex.renderToString(key, { throwOnError: false })
-    return <span dangerouslySetInnerHTML={{ __html: renderedStr }} />
+    return <span key={`implicit_katex_${key}_${num}`} dangerouslySetInnerHTML={{ __html: renderedStr }} />
   }
 
   const keysplit = key.split('.')
@@ -19,11 +19,11 @@ function getSubstitutedSpan(key, substitutionObj) {
 
   if (textOrKatex === 'k') {
     const renderedStr = katex.renderToString(currentObj, { throwOnError: false })
-    return <span dangerouslySetInnerHTML={{ __html: renderedStr }} />
+    return <span key={`explicit_katex_${currentObj}_${num}`} dangerouslySetInnerHTML={{ __html: renderedStr }} />
   }
 
   // otherwise treat it as text
-  return <span>{currentObj}</span>
+  return <span key={`text_${currentObj}_${num}`}>{currentObj}</span>
 }
 
 function getSubstitutedElement(s, subMap) {
@@ -35,6 +35,10 @@ function getSubstitutedElement(s, subMap) {
   const captureRegex = /\$(.*?)\$/
   // captures everything between $ and $
   let match = captureRegex.exec(str)
+
+  let counter = 0
+  // use a counter to get numbers for the
+  // react key used in the substitution span.
 
   const outputList = []
   while (match && str.length) {
@@ -51,8 +55,8 @@ function getSubstitutedElement(s, subMap) {
       const key = innerContents.substr(1, lastCharIndex - 1)
       // add everything before the key as a span element.
       const beforeKey = str.substr(0, index)
-      outputList.push(<span>{beforeKey}</span>)
-      outputList.push(getSubstitutedSpan(key, subMap))
+      outputList.push(<span key={beforeKey.substr(0, 10)}>{beforeKey}</span>)
+      outputList.push(getSubstitutedSpan(key, subMap, counter))
 
       // strip everything from string up to the last $ in the match.
       str = str.substr(index + totalMatch.length)
@@ -65,12 +69,14 @@ function getSubstitutedElement(s, subMap) {
       // and then strip everything up until the last dollar sign
       // from str for the next iteration.
       const beforeKey = str.substr(0, index + totalMatch.length - 1)
-      outputList.push(<span>{beforeKey}</span>)
+      outputList.push(<span key={beforeKey.substr(0, 10)}>{beforeKey}</span>)
       str = str.substr(index + totalMatch.length - 1)
       match = captureRegex.exec(str)
     }
+
+    counter += 1
   }
-  outputList.push(<span>{str}</span>)
+  outputList.push(<span key={str.substr(0, 10)}>{str}</span>)
 
   return outputList
 }
