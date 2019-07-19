@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap'
-import katex from 'katex'
 
 import nodeData from '../data/nodeData.json'
 import { lessonClosed } from '../actions/lessonActions'
 import { LessonText } from './LessonText'
+import { LessonFormula } from './LessonFormula'
 
 export function Lesson(props) {
   const { isOpen, lessonClosed: toggle, lessonName } = props
@@ -19,12 +19,7 @@ export function Lesson(props) {
       // each object should only have one key
 
       if (key === 'formula') {
-        const renderedString = katex.renderToString(obj[key], {
-          throwOnError: false,
-        })
-        lessonList.push(
-          <div style={{ textAlign: 'center', margin: '1em' }} dangerouslySetInnerHTML={{ __html: renderedString }} />,
-        )
+        lessonList.push(<LessonFormula formula={obj[key]} />)
       } else if (key === 'text') {
         lessonList.push(<LessonText text={obj[key]} substitutions={lessonObj.substitutions} />)
       } else {
