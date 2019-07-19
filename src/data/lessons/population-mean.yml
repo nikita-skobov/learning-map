@@ -1,0 +1,33 @@
+name: Population Mean
+description: measure of central tendency in a population
+prerequisites: # list the names one by one
+ - addition
+ - division
+ - notation
+ - averages
+ # if no prerequisites, prerequisites should be set to an empty
+ # list like so:
+ # prerequisites: []
+
+this is a weird key:
+  # any root keys that are not part of the spec
+  # will be ignored. you can use these keys for aliases
+  # or other data that you do not want to be rendered.
+  - &formula1 '\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}'
+
+lesson:
+  # the following text will be rendered as:
+  # fear
+  # not! yaml allows you to write in multiple lines
+  #
+  - text: >
+      The population mean is the average value of a characteristic from some group.
+      The group can be anything, not necessarily persons; eg: the group can be all the cars in a country.
+      The key is that the population represents ALL individuals of that group.
+      The population mean is noted by the greek letter μ (pronounced mew).
+
+  - formula: *formula1
+  - text: |
+      'where N is the total number of individuals in the population
+      and x is a single observation of an individual (ie: the value of the characteristic)
+      and the summation sums from 1 to N (ie: summing across all the individuals in the population).'
