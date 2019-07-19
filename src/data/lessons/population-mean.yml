@@ -8,6 +8,7 @@ prerequisites: # list the names one by one
  # if no prerequisites, prerequisites should be set to an empty
  # list like so:
  # prerequisites: []
+
 substitutions:
   # NOTE: the following substitutions are done by the PARSER.
   # this is not a feature of yaml.
@@ -24,6 +25,7 @@ substitutions:
     # it will pre-render these elements and allow substitution
     # inside of text fields via the ${katex.mu}$ syntax
     mu: '\mu'
+    N: 'N'
   # you can also do katex substitutions by simply making your substitution:
   # ${\mu}$
   # if the parser sees that the first character is a backslash, it will treat it as katex
@@ -39,10 +41,9 @@ lesson:
       ${popmean}$ is the average value of a characteristic from some group.
       The group can be anything, not necessarily persons; eg: the group can be all the cars in a country.
       The key is that the population represents ALL individuals of that group.
-      ${t.popmean}$. ${t.popmean}$ is noted by the greek letter ${k.mu}$ (pronounced mew).
+      ${t.popmean}$ is noted by the greek letter ${\mu}$ (pronounced mew).
 
   - formula: *formula1
   - text: >
-      where N is the total number of individuals in the population
-      and x is a single observation of an individual (ie: the value of the characteristic)
-      and the summation sums from 1 to N (ie: summing across all the individuals in the population).
+      where ${k.N}$ is the total number of individuals in the population
+      and ${\scriptstyle \large x_i}$ is a single observation of an individual (ie: the value of the characteristic for individual ${\large i}$)
