@@ -31,11 +31,13 @@ try {
       description,
       lesson,
       prerequisites,
+      substitutions,
     } = doc
 
     nodeObj[name] = {
       description,
       lesson,
+      substitutions,
     }
 
     if (prerequisites.length > 0) {
