@@ -63,7 +63,8 @@ export function makeCircleSprite(vertice, name, that) {
     a.currentTarget.getChildAt(0).tint = selectedTint
     // tint current vertice
 
-    that.nodeMap[id].forEach((edgeSprite) => {
+    const nodeMap = that.nodeMap[id] || []
+    nodeMap.forEach((edgeSprite) => {
       highlightIds.push(edgeSprite.id)
     })
     that.edgeContainer.children.forEach((child) => {
