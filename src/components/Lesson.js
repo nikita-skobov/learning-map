@@ -1,52 +1,40 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 
 import nodeData from '../data/nodeData.json'
-import { lessonClosed } from '../actions/lessonActions'
 import { LessonText } from './LessonText'
 import { LessonFormula } from './LessonFormula'
 
 export function Lesson(props) {
-  const { isOpen, lessonClosed: toggle, lessonName } = props
+  const { name } = props
 
   const lessonList = []
-  const lessonObj = nodeData[lessonName]
+  const lessonObj = nodeData[name]
 
   if (lessonObj && lessonObj.lesson) {
     lessonObj.lesson.forEach((obj) => {
       const [key] = Object.keys(obj)
       // each object should only have one key
 
+      const unique = obj[key] && obj[key].substr(0, 10)
+      // some unique identifier to be used for the react key
+      // since we are returning an array.
+
       if (key === 'formula') {
-        lessonList.push(<LessonFormula formula={obj[key]} />)
+        lessonList.push(<LessonFormula key={`formula_${unique}`} formula={obj[key]} />)
       } else if (key === 'text') {
-        lessonList.push(<LessonText text={obj[key]} substitutions={lessonObj.substitutions} />)
+        lessonList.push(<LessonText key={`text_${unique}`} text={obj[key]} substitutions={lessonObj.substitutions} />)
       } else {
         // treat it as a normal text element, but dont do any special parsing
         // or substitution
         lessonList.push(
-          <p>{obj[key]}</p>,
+          <p key={`unknown_${unique}`}>{obj[key]}</p>,
         )
       }
     })
   }
 
-  return (
-    <div>
-      <Modal isOpen={isOpen}>
-        <ModalHeader toggle={toggle}>{lessonName}</ModalHeader>
-        <ModalBody>
-          {lessonList}
-        </ModalBody>
-      </Modal>
-    </div>
-  )
+  return lessonList
 }
 
-const mapStateToProps = state => state.lesson
-const mapActionsToProps = {
-  lessonClosed,
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(Lesson)
+export default connect()(Lesson)

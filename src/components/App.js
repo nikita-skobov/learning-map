@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import './App.css'
 import ConnectedCanvas from './Canvas'
-import ConnectedLesson from './Lesson'
+import ConnectedLesson from './LessonModal'
 
 export function App() {
   return (
