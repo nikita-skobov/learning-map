@@ -1,6 +1,6 @@
 // in the future, real data will be here.
 // for now, it will simply use the sampleNodes file.
-import sampleNodes from './sampleNodes'
+import sampleNodes from './nodeData.json'
 
 const data = {
   data: sampleNodes,
