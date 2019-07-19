@@ -37,6 +37,9 @@ this is a weird key:
   - &formula1 '\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}'
 
 lesson:
+  # NOTE: for multiline text elements, indentation matters!
+  # also, this text block does NOT preserve new lines.
+  # if you want each sentence to be on a new line, use multiple text elements
   - text: >
       ${popmean}$ is the average value of a characteristic from some group.
       The group can be anything, not necessarily persons; eg: the group can be all the cars in a country.
