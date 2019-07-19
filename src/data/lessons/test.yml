@@ -1,11 +1,10 @@
-name: Population Mean
+name: test
 description: measure of central tendency in a population
-prerequisites: # list the names one by one
- - addition
- - notation
- # if no prerequisites, prerequisites should be set to an empty
- # list like so:
- # prerequisites: []
+prerequisites: []
+ # if there are no prerequisites, then specify an empty array like above.
+ # otherwise list the names one by one like:
+ #  - addition
+ #  - notation
 
 this is a weird key:
   # any root keys that are not part of the spec
