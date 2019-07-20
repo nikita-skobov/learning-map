@@ -1,10 +1,12 @@
 name: Population Mean
 description: measure of central tendency in a population
-prerequisites: # list the names one by one
+prerequisites: # list the names one by one, followed by rating
+# A means absolutely required
+# B means it is recommended
   addition: A
   division: A
   notation: B
-  averages: C
+  averages: B
  # if no prerequisites, prerequisites should be set to an empty
  # object like so:
  # prerequisites: {}
