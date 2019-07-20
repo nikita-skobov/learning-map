@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-// import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './index.css'
 import ReduxApp from './components/App'
@@ -19,17 +19,9 @@ const store = setupStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <ReduxApp />
+    <Router>
+      <Route path="/:filter?" component={ReduxApp} />
+    </Router>
   </Provider>,
   document.getElementById('root'),
 )
-
-// uncomment this if you use router
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <Router>
-//       <Route path="/:filter?" component={ReduxApp} />
-//     </Router>
-//   </Provider>,
-//   document.getElementById('root'),
-// )
