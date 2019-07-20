@@ -102,6 +102,7 @@ export class Canvas extends Component {
         this.app.view.height,
       )
 
+      resetBackgroundBox(tillingSprite, this.viewport)
       resetBackgroundBox(backgroundBox, this.viewport)
 
       this.alignSprites()
