@@ -10,3 +10,7 @@ node src/data/parseLessons.js
 # objects from the lesson yaml files.
 npm run start
 ```
+
+## KaTeX fonts:
+This project uses [KaTeX](https://github.com/KaTeX/KaTeX) which is a really nice library that allows latex-like rendering directly in the browser. It needs katex css and katex fonts to work properly, and those are not included in the katex npm package. I have solved this problem temporarily by downloading the `katex.min.css` file and all the fonts files from https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/
+where 0.10.2 is the latest version at the time of writing this. If you want to build this project from source, you will want to download `katex.min.css` from there and place it in the public directory, and download all the fonts and place them in a folder called `fonts` which is also in the public directory.

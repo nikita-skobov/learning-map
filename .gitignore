@@ -2,3 +2,4 @@ node_modules
 build
 src/data/nodeData.json
 src/data/lessons/*.txt
+public/fonts
