@@ -1,9 +1,9 @@
 // in the future, real data will be here.
 // for now, it will simply use the sampleNodes file.
-import sampleNodes from './nodeData.json'
+import nodeData from './nodeData.json'
 
 const data = {
-  data: sampleNodes,
+  data: nodeData,
   formatted: false,
 }
 export default data
@@ -12,5 +12,6 @@ export default data
 // const data = {
 //   data: realData,
 //   formatted: true,
+// formatted true implies the data already contains positions
 // }
 // export default data
