@@ -1,0 +1,18 @@
+name: Sample Mean
+description: numerical average over a sampled group
+prerequisites: 
+  addition: A
+  division: A
+  notation: B
+  averages: A
+
+lesson:
+  - text: >
+      The sample mean is simply the average of your sample.
+      If you sample ${\small n}$ individuals, and measure a characteristic, the sample
+      mean would be the summation of the characteristic values divided by ${\small n}$.
+  - formula: \LARGE \bar{x} = \frac{\sum\limits_{\small i=1}^{\small n} x_i}{n}
+  - text: >
+      In other words, add up the value measured for each individual, and divide by
+      the number of individuals.
+
