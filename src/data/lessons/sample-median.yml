@@ -1,0 +1,35 @@
+name: Sample Median
+description: The 'middle' value of a dataset
+prerequisites: 
+  addition: A
+  division: A
+  notation: B
+  averages: B
+
+lesson:
+  - text: >
+      The sample median is the 'middle' value of your sample. If you arrange
+      your sample data in increasing or decreasing order (it does not matter since
+      we are looking for the middle number) the median is the value that is in
+      the middle of the sorted list of values. In the case that there are
+      2 middle values (ie: the number of sample observations is even), the median
+      is calculated by taking the average of the two middle values.
+  - formula: >
+      \Large \bar{x} = \begin{cases}
+        x_{(n + 1)/2} &\text{if } n \text{ is odd} \\
+        \frac{1}{2} (x_{n/2} + x_{n / 2+1}) &\text{if } n \text{ is even}
+      \end{cases}
+  - text: >
+      In other words, add up the value measured for each individual, and divide by
+      the number of individuals. Here is an example where n is odd (n = 5)
+  - formula: 'x_1 , x_2 , \textcolor{red}{x_3} , x_4 , x_5'
+  - text: >
+      Since n is odd, we take the ${\small [(n + 1)/2] }$th element of x. ${\small (5 + 1) / 2 = 3}$. so we
+      take ${\small \color{red} x_3}$ as our median.
+  - text: In the following example, n is even (n = 6)
+  - formula: 'x_1 , x_2 , \textcolor{red}{x_3} , \textcolor{blue}{x_4} , x_5, x_6'
+  - text: >
+      Since n is even, we take the average of the two middle terms. The left middle term
+      is ${\small x_{n/2}}$. n = 6, so that is ${\small \color{red} x_3}$. The right middle term is
+      ${\small x_{n/2 + 1}}$ which is ${\small \color{blue} x_4}$. We then add up the values for those two
+      individuals, and divide by two (since there are two individuals).
