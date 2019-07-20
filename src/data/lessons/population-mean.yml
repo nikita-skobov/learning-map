@@ -1,13 +1,13 @@
 name: Population Mean
 description: measure of central tendency in a population
 prerequisites: # list the names one by one
- - addition
- - division
- - notation
- - averages
+  addition: A
+  division: A
+  notation: B
+  averages: C
  # if no prerequisites, prerequisites should be set to an empty
- # list like so:
- # prerequisites: []
+ # object like so:
+ # prerequisites: {}
 
 substitutions:
   # NOTE: the following substitutions are done by the PARSER.

@@ -38,11 +38,14 @@ try {
       description,
       lesson,
       substitutions,
+      prerequisites,
     }
 
-    if (prerequisites.length > 0) {
-      nodeObj[name].dependsOn = prerequisites
-      prerequisites.forEach((prereq) => {
+    const prerequisiteKeys = Object.keys(prerequisites)
+
+    if (prerequisiteKeys.length > 0) {
+      nodeObj[name].dependsOn = prerequisiteKeys
+      prerequisiteKeys.forEach((prereq) => {
         nodeObj[prereq] = {}
         // we want to create the prerequisite object here
         // incase the prerequisite doesnt actually exist, we still
