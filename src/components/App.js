@@ -5,10 +5,13 @@ import { connect } from 'react-redux'
 import './App.css'
 import ConnectedCanvas from './Canvas'
 import ConnectedLesson from './LessonModal'
+import { SITE_NAME } from '../constants'
+import { SiteTitle } from './SiteTitle'
 
 export function App() {
   return (
     <div>
+      <SiteTitle title={SITE_NAME} />
       <ConnectedLesson />
       <ConnectedCanvas />
     </div>
