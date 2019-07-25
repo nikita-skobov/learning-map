@@ -53,6 +53,7 @@ const myMap = props => (
   <Col>
     <MapField
       {...props}
+      currentValue={{}}
       addKeyValueComponent={<CustomAdd fieldType="add-key-value" addType="Prerequisite" />}
       keyValueComponent={<KeyValueField keyComponent={myVal} valueComponent={mySelect} deleteComponent={myDel} className="no-gutters row editor-kvf-small" />}
     />
