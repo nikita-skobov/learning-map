@@ -31,3 +31,7 @@
   border-radius: 100%;
   padding: .375rem .75rem;
 }
+
+textarea.form-control {
+  resize: none;
+}

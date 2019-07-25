@@ -5,7 +5,6 @@ import {
   ListField,
   KeyValueField,
   Label,
-  AddKeyValueField,
 } from 'abstract-editor'
 import {
   Input,
@@ -13,12 +12,14 @@ import {
   Button,
   ButtonGroup,
 } from 'reactstrap'
+import Textarea from 'react-textarea-autosize'
 
 import './Editor.css'
 import FormulaEditor from './FormulaEditor'
 
 const noop = () => null
 const mySep = () => <span className="editor-sep" />
+const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
 const mySelect = ({ onUpdate }) => (
   <Col xs="auto">
@@ -38,7 +39,7 @@ const myDel = props => (
   <Button {...props} color="secondary" outline size="sm" type="button">X</Button>
 )
 const myDel2 = props => (
-  <Button {...props} className="mt-1" color="secondary" outline block size="sm" type="button">Remove {props.deleteType}</Button>
+  <Button {...props} className="mt-1" color="secondary" outline block size="sm" type="button">Remove</Button>
 )
 const CustomAdd = p => (
   <Button className="editor-kvf-margin-small" outline block color="secondary" type="button" onClick={p.onUpdate}>Add {p.addType}</Button>
@@ -57,7 +58,7 @@ const kvForTextItem = (
   <KeyValueField
     keyComponent={noop}
     className="no-gutters row editor-kvf-small"
-    valueComponent={myVal}
+    valueComponent={myValAuto}
     seperatorComponent={noop}
   />
 )
@@ -138,7 +139,7 @@ export default class Editor extends Component {
             className="no-gutters row editor-kvf"
             seperatorComponent={mySep}
             keyComponent={myLabel}
-            valueComponent={myVal}
+            valueComponent={myValAuto}
           />
           <KeyValueField
             name="prerequisites"
