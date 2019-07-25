@@ -11,6 +11,8 @@ import {
   Col,
   Button,
   ButtonGroup,
+  Row,
+  Container,
 } from 'reactstrap'
 import Textarea from 'react-textarea-autosize'
 
@@ -18,7 +20,7 @@ import './Editor.css'
 import FormulaEditor from './FormulaEditor'
 
 const noop = () => null
-const mySep = () => <span className="editor-sep" />
+const mySep = () => <span style={{ width: '100%' }} />
 const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
 const mySelect = ({ onUpdate }) => (
@@ -121,42 +123,49 @@ export default class Editor extends Component {
 
   render() {
     return (
-      <div className="editor-root">
-        <AbstractEditor
-          onUpdate={this.onUpdate}
-          currentValue={this.data}
-          renderOutputTemplate
-        >
-          <KeyValueField
-            name="name"
-            className="no-gutters row editor-kvf"
-            keyComponent={myLabel}
-            valueComponent={myVal}
-            seperatorComponent={mySep}
-          />
-          <KeyValueField
-            name="description"
-            className="no-gutters row editor-kvf"
-            seperatorComponent={mySep}
-            keyComponent={myLabel}
-            valueComponent={myValAuto}
-          />
-          <KeyValueField
-            name="prerequisites"
-            className="no-gutters row editor-kvf"
-            seperatorComponent={mySep}
-            keyComponent={myLabel}
-            valueComponent={myMap}
-          />
-          <KeyValueField
-            name="lesson"
-            className="no-gutters row editor-kvf"
-            seperatorComponent={mySep}
-            keyComponent={myLabel}
-            valueComponent={myList}
-          />
-        </AbstractEditor>
-      </div>
+      <Container fluid>
+        <Row noGutters>
+          <Col style={{ minWidth: '50%' }}>
+            <AbstractEditor
+              onUpdate={this.onUpdate}
+              currentValue={this.data}
+              renderOutputTemplate
+            >
+              <KeyValueField
+                name="name"
+                className="no-gutters row editor-kvf"
+                keyComponent={myLabel}
+                valueComponent={myVal}
+                seperatorComponent={mySep}
+              />
+              <KeyValueField
+                name="description"
+                className="no-gutters row editor-kvf"
+                seperatorComponent={mySep}
+                keyComponent={myLabel}
+                valueComponent={myValAuto}
+              />
+              <KeyValueField
+                name="prerequisites"
+                className="no-gutters row editor-kvf"
+                seperatorComponent={mySep}
+                keyComponent={myLabel}
+                valueComponent={myMap}
+              />
+              <KeyValueField
+                name="lesson"
+                className="no-gutters row editor-kvf"
+                seperatorComponent={mySep}
+                keyComponent={myLabel}
+                valueComponent={myList}
+              />
+            </AbstractEditor>
+          </Col>
+          <Col sm={{ size: 'auto' }} style={{ minWidth: '50%' }}>
+            some other content lulw
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
