@@ -18,6 +18,7 @@ import Textarea from 'react-textarea-autosize'
 
 import './Editor.css'
 import FormulaEditor from './FormulaEditor'
+import { Lesson } from './Lesson'
 
 const noop = () => null
 const mySep = () => <span style={{ width: '100%' }} />
@@ -123,7 +124,7 @@ export default class Editor extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid className="mb-5">
         <Row noGutters>
           <Col style={{ minWidth: '50%' }}>
             <AbstractEditor
@@ -134,7 +135,6 @@ export default class Editor extends Component {
               <KeyValueField
                 name="name"
                 className="no-gutters row editor-kvf"
-                keyComponent={myLabel}
                 valueComponent={myVal}
                 seperatorComponent={mySep}
               />
@@ -142,28 +142,28 @@ export default class Editor extends Component {
                 name="description"
                 className="no-gutters row editor-kvf"
                 seperatorComponent={mySep}
-                keyComponent={myLabel}
                 valueComponent={myValAuto}
               />
               <KeyValueField
                 name="prerequisites"
                 className="no-gutters row editor-kvf"
                 seperatorComponent={mySep}
-                keyComponent={myLabel}
                 valueComponent={myMap}
               />
               <KeyValueField
                 name="lesson"
                 className="no-gutters row editor-kvf"
                 seperatorComponent={mySep}
-                keyComponent={myLabel}
                 valueComponent={myList}
               />
             </AbstractEditor>
           </Col>
-          <Col sm={{ size: 'auto' }} style={{ minWidth: '50%' }}>
-            some other content lulw
-          </Col>
+          <div className="col-xs-6 col-md-6">
+            <p>Preview: </p>
+            <div>
+              <Lesson name="Population Mean" />
+            </div>
+          </div>
         </Row>
       </Container>
     )
