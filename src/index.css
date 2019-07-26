@@ -2,5 +2,13 @@ html,body,#root {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.map-root {
   overflow: hidden;
+  height: 100%;
+}
+
+.row {
+  width: 100%;
 }

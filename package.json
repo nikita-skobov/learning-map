@@ -32,12 +32,12 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint-config-airbnb": "^17.1.1",
     "jest-fetch-mock": "^2.1.2",
-    "js-yaml": "^3.13.1",
     "redux-mock-store": "^1.5.3"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
     "cytoscape": "^3.8.1",
+    "js-yaml": "^3.13.1",
     "katex": "^0.10.2",
     "pixi-viewport": "^4.0.1",
     "pixi.js": "^5.0.4",
@@ -45,7 +45,9 @@
     "react-app-polyfill": "^1.0.1",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
+    "react-textarea-autosize": "^7.1.0",
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"

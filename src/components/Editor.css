@@ -1,0 +1,43 @@
+.editor-root {
+  max-width: 50em;
+  margin: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.editor-kvf {
+  padding-top: 1em;
+}
+
+.editor-label {
+  text-align: right;
+  max-width: 30%;
+  min-width: 30%;
+}
+
+.editor-sep {
+  width: 10px;
+}
+
+.editor-kvf-small {
+  padding-top: 0.5em;
+}
+
+.editor-preview {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.editor-kvf-margin-small {
+  margin-top: 0.5em;
+}
+
+.delete-btn {
+  border-radius: 100%;
+  padding: .375rem .75rem;
+}
+
+textarea.form-control {
+  resize: none;
+}

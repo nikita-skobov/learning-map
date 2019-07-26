@@ -14,10 +14,14 @@ function getSubstitutedSpan(key, substitutionObj, num) {
 
   let currentObj = substitutionObj
   keysplit.forEach((innerKey) => {
-    currentObj = currentObj[innerKey]
+    if (currentObj && currentObj[innerKey]) {
+      currentObj = currentObj[innerKey]
+    }
   })
 
-  if (textOrKatex === 'k') {
+  if (textOrKatex === 'k' && typeof currentObj !== 'object') {
+    // currentObj should be set to some sort of value (number or string)
+    // if we traverse the dot.notation and end up at an object, something went wrong.
     const renderedStr = katex.renderToString(currentObj, { throwOnError: false })
     return <span key={`explicit_katex_${currentObj}_${num}`} dangerouslySetInnerHTML={{ __html: renderedStr }} />
   }
@@ -55,8 +59,13 @@ function getSubstitutedElement(s, subMap) {
       const key = innerContents.substr(1, lastCharIndex - 1)
       // add everything before the key as a span element.
       const beforeKey = str.substr(0, index)
-      outputList.push(<span key={beforeKey.substr(0, 10)}>{beforeKey}</span>)
-      outputList.push(getSubstitutedSpan(key, subMap, counter))
+      outputList.push(<span key={`${beforeKey.substr(0, 10)}_${counter}`}>{beforeKey}</span>)
+      counter += 1
+      if (key) {
+        // in case key is empty string, avoid calling this function
+        outputList.push(getSubstitutedSpan(key, subMap, counter))
+        counter += 1
+      }
 
       // strip everything from string up to the last $ in the match.
       str = str.substr(index + totalMatch.length)
@@ -69,14 +78,13 @@ function getSubstitutedElement(s, subMap) {
       // and then strip everything up until the last dollar sign
       // from str for the next iteration.
       const beforeKey = str.substr(0, index + totalMatch.length - 1)
-      outputList.push(<span key={beforeKey.substr(0, 10)}>{beforeKey}</span>)
+      outputList.push(<span key={`${beforeKey.substr(0, 10)}_${counter}`}>{beforeKey}</span>)
       str = str.substr(index + totalMatch.length - 1)
       match = captureRegex.exec(str)
+      counter += 1
     }
-
-    counter += 1
   }
-  outputList.push(<span key={str.substr(0, 10)}>{str}</span>)
+  outputList.push(<span key={`${str.substr(0, 10)}_${counter}`}>{str}</span>)
 
   return outputList
 }
