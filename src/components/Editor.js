@@ -166,7 +166,9 @@ export default class Editor extends Component {
           <div className="col-xs-6 col-md-6">
             <div className="editor-preview">
               <p>Preview: </p>
+              <hr />
               <Lesson name={name} renderName lessonObj={this.state} />
+              <hr />
             </div>
           </div>
         </Row>

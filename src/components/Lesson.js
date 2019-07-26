@@ -9,9 +9,10 @@ export function Lesson(props) {
   const { lessonObj, name, renderName } = props
 
   const lessonList = []
+  let counter = 0
 
   if (renderName) {
-    lessonList.push(<h2>{name}</h2>)
+    lessonList.push(<h2 key="lesson-name">{name}</h2>)
   }
 
   if (lessonObj && lessonObj.lesson) {
@@ -24,16 +25,18 @@ export function Lesson(props) {
       // since we are returning an array.
 
       if (key === 'formula') {
-        lessonList.push(<LessonFormula key={`formula_${unique}`} formula={obj[key]} />)
+        lessonList.push(<LessonFormula key={`formula_${unique}_${counter}`} formula={obj[key]} />)
       } else if (key === 'text') {
-        lessonList.push(<LessonText key={`text_${unique}`} text={obj[key]} substitutions={lessonObj.substitutions} />)
+        lessonList.push(<LessonText key={`text_${unique}_${counter}`} text={obj[key]} substitutions={lessonObj.substitutions} />)
       } else {
         // treat it as a normal text element, but dont do any special parsing
         // or substitution
         lessonList.push(
-          <p key={`unknown_${unique}`}>{obj[key]}</p>,
+          <p key={`unknown_${unique}_${counter}`}>{obj[key]}</p>,
         )
       }
+
+      counter += 1
     })
   }
 
