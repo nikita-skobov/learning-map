@@ -183,7 +183,7 @@ export default class Editor extends Component {
               <hr />
               <Lesson name={name} renderName lessonObj={this.state} />
               <hr />
-              <Button onClick={this.submit} color="primary" disabled={name === ''}>Submit</Button>
+              <Button onClick={this.submit} color="info" disabled={name === ''}>Submit</Button>
             </div>
           </div>
         </Row>
