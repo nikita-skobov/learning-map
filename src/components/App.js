@@ -19,7 +19,9 @@ import { SiteTitle } from './SiteTitle'
 function MapApp() {
   return (
     <div className="map-root">
-      <SiteTitle title={SITE_NAME} />
+      <NavLink to="/editor">
+        <SiteTitle title={SITE_NAME} />
+      </NavLink>
       <ConnectedLesson />
       <ConnectedCanvas />
     </div>
@@ -43,7 +45,7 @@ function MainApp({ location }) {
     <div>
       <Navbar color="info" dark expand="md">
         <NavLink to="/">
-          <NavbarBrand className="text-white">{SITE_NAME}</NavbarBrand>
+          <span className="text-white navbar-brand">{SITE_NAME}</span>
         </NavLink>
         <Nav className="ml-auto" navbar>
           <NavItem>
