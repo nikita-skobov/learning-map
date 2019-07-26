@@ -12,7 +12,7 @@ import { SiteTitle } from './SiteTitle'
 
 function MapApp() {
   return (
-    <div>
+    <div className="map-root">
       <SiteTitle title={SITE_NAME} />
       <ConnectedLesson />
       <ConnectedCanvas />
