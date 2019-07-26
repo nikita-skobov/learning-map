@@ -1,10 +1,8 @@
 name: Sample Mean
 description: numerical average over a sampled group
 prerequisites: 
-  addition: A
-  division: A
+  Statistics Terminology: A
   notation: B
-  averages: A
 
 lesson:
   - text: >
