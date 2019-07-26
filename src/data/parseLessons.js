@@ -2,6 +2,8 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 
 
+const has = Object.prototype.hasOwnProperty
+
 function getAllFileNames(path) {
   const fileNames = []
   const dirContents = fs.readdirSync(path)
@@ -40,15 +42,18 @@ try {
       prerequisites,
     }
 
+
     const prerequisiteKeys = Object.keys(prerequisites)
 
     if (prerequisiteKeys.length > 0) {
       nodeObj[name].dependsOn = prerequisiteKeys
       prerequisiteKeys.forEach((prereq) => {
-        nodeObj[prereq] = {}
-        // we want to create the prerequisite object here
-        // incase the prerequisite doesnt actually exist, we still
-        // want to render a node with that label
+        if (!has.call(nodeObj, prereq)) {
+          nodeObj[prereq] = {}
+          // we want to create the prerequisite object here
+          // incase the prerequisite doesnt actually exist, we still
+          // want to render a node with that label
+        }
       })
     }
   })
