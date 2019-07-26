@@ -1,0 +1,16 @@
+name: Sample range
+description: a measure of variability.
+prerequisites:
+  Statistics Terminology: A
+lesson:
+  - text: >-
+      Where mean, and median are measures of central tendency, the sample range
+      is a measure of variability. It is simply the smallest value in a sample
+      subtracted from the largest value, or:
+  - formula: '\LARGE X_{max} - X_{min}'
+  - text: 'Example:'
+  - text: >-
+      If our sample is: ${\\ \{10, 20, 15, 20, 30\} \\}$
+
+      the largest value is 30, the smallest value is 10. Therefore the range is
+      ${\\ 30 - 10 = 20}$

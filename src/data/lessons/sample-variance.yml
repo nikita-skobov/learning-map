@@ -1,0 +1,27 @@
+name: Sample Variance
+description: a measure of variability.
+prerequisites:
+  Statistics Terminology: A
+  Sample Mean: A
+  notation: B
+
+lesson:
+  - text: >-
+      To put simply, variance measures how far a set of data from the sample is
+      spread out from the sample mean.
+  - text: The formal definition of variance is
+  - formula: >-
+      the \ expectation \ of \ the \ squared \ deviation \ of \ a \ random \
+      variable \ from \ its \ mean 
+  - text: >-
+      It sounds complicated, but really it's quite simple. 'expectation of'
+      basically means it is an average. Deviation from the mean is simply the
+      difference of a single value from the average value. So the sample
+      variance can be calculated by taking the difference of every data point in
+      the sample from the sample mean, and then squaring those differences, and
+      then dividing by the number of observations, ie: divide by${\ n}$.
+      However, when we measure variance of a sample that is meant to estimate a
+      population, we divide by ${\ n - 1}$. This is called Bessel's correction.
+      The value ${\ n - 1}$ is called the degrees of freedom.
+  - text: 'Thus the formula for sample variance becomes:'
+  - formula: '\LARGE s^2 = \sum\limits_{i=1}^{n} \frac{(x_i -\bar{x})^2}{n - 1}'

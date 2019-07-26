@@ -1,0 +1,20 @@
+name: Statistics Terminology
+description: >-
+  some important keywords and definitions referred to by various statistics
+  related lessons
+prerequisites: {}
+lesson:
+  - text: Sample
+  - text: A collection of observations collected from a population.
+  - text: Population
+  - text: >-
+      A collection of all individuals of a certain type. (eg: all people in
+      america, or all bolts manufactured by a company)
+  - text: Simple random sampling
+  - text: >-
+      a method of sampling. Simple random sampling (or SRS) means that if you
+      take repeated samples of the same sample size, that any of those samples
+      has the same chance of being selected as any other sample of the same
+      size.
+  - text: Sample size
+  - text: the number of individuals in the sample.

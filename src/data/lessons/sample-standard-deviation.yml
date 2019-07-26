@@ -1,0 +1,17 @@
+name: Sample standard deviation
+description: A measure of variability
+prerequisites:
+  Statistics Terminology: A
+  Sample Variance: A
+  notation: B
+lesson:
+  - text: >-
+      The standard deviation is a measure of variability. A low standard
+      deviation suggests that the sample data points tend to be closer to the
+      mean. A high standard deviation suggests that the sample data are much
+      more spread out.
+  - text: >-
+      The sample standard deviation is denoted by the latin letter ${\large s}$.
+      It can be calculated by
+  - formula: '\Large s = \sqrt{s^2}'
+  - text: 'Where ${\Large s^2}$ is the sample variance.'
