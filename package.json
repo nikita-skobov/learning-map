@@ -35,6 +35,7 @@
     "redux-mock-store": "^1.5.3"
   },
   "dependencies": {
+    "abstract-editor": "^0.9.0",
     "bootstrap": "^4.3.1",
     "cytoscape": "^3.8.1",
     "js-yaml": "^3.13.1",

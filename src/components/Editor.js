@@ -4,7 +4,6 @@ import {
   MapField,
   ListField,
   KeyValueField,
-  Label,
 } from 'abstract-editor'
 import {
   Input,
