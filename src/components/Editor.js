@@ -37,8 +37,12 @@ const mySelect = ({ onUpdate }) => (
 const myDel = props => (
   <Button {...props} color="secondary" outline size="sm" type="button">X</Button>
 )
-const myDel2 = props => (
-  <Button {...props} className="mt-1" color="secondary" outline block size="sm" type="button">Remove</Button>
+const myDel2 = ({ onClick, onMove }) => (
+  <ButtonGroup className="w-100 mt-1">
+    <Button onClick={onClick} color="secondary" outline size="sm" type="button">Remove</Button>
+    <Button color="secondary" outline size="sm" type="button" onClick={() => { onMove(1) }}>Move up</Button>
+    <Button color="secondary" outline size="sm" type="button" onClick={() => { onMove(-1) }}>Move down</Button>
+  </ButtonGroup>
 )
 const CustomAdd = p => (
   <Button className="editor-kvf-margin-small" outline block color="secondary" type="button" onClick={p.onUpdate}>Add {p.addType}</Button>
