@@ -24,6 +24,7 @@ import { arraysEqual, downloadFile } from '../utilities'
 const noop = () => null
 const mySep = () => <span style={{ width: '100%' }} />
 const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} /></Col>
+const myValAutoText = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} defaultValue="An example text item. You can use ${}$ syntax to substitute katex rendering. (NOTE: the contents within brackets must begin with a \). Here is an example: ${\color{red} \mu}$" /></Col>
 const myValAutoFormula = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" defaultValue="\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
 const mySelect = ({ onUpdate }) => (
@@ -62,7 +63,7 @@ const kvForTextItem = (
   <KeyValueField
     keyComponent={noop}
     className="no-gutters row editor-kvf-small"
-    valueComponent={myValAuto}
+    valueComponent={myValAutoText}
     seperatorComponent={noop}
   />
 )
@@ -93,7 +94,7 @@ const mapForFormulaItem = (
 
 const myAdd1 = props => (
   <ButtonGroup className="w-100 mt-2">
-    <Button outline onClick={() => { props.onUpdate({ text: '' }, mapForTextItem) }}>Add Text</Button>
+    <Button outline onClick={() => { props.onUpdate({ text: 'An example text item. You can use ${}$ syntax to substitute katex rendering. (NOTE: the contents within brackets must begin with a \\). Here is an example: ${\\color{red} \\mu}$' }, mapForTextItem) }}>Add Text</Button>
     <Button outline onClick={() => { props.onUpdate({ formula: '\\LARGE \\mu = \\frac{\\sum\\limits_{\\small i=1}^{\\small N} x_i}{N}' }, mapForFormulaItem) }}>Add Formula</Button>
   </ButtonGroup>
 )

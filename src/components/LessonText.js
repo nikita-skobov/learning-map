@@ -14,10 +14,14 @@ function getSubstitutedSpan(key, substitutionObj, num) {
 
   let currentObj = substitutionObj
   keysplit.forEach((innerKey) => {
-    currentObj = currentObj[innerKey]
+    if (currentObj && currentObj[innerKey]) {
+      currentObj = currentObj[innerKey]
+    }
   })
 
-  if (textOrKatex === 'k') {
+  if (textOrKatex === 'k' && typeof currentObj !== 'object') {
+    // currentObj should be set to some sort of value (number or string)
+    // if we traverse the dot.notation and end up at an object, something went wrong.
     const renderedStr = katex.renderToString(currentObj, { throwOnError: false })
     return <span key={`explicit_katex_${currentObj}_${num}`} dangerouslySetInnerHTML={{ __html: renderedStr }} />
   }
