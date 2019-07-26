@@ -15,7 +15,6 @@ import {
   Container,
 } from 'reactstrap'
 import Textarea from 'react-textarea-autosize'
-// eslint-disable-next-line
 import yaml from 'js-yaml'
 
 import './Editor.css'
