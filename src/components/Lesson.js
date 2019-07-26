@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import nodeData from '../data/nodeData.json'
+
 import { LessonText } from './LessonText'
 import { LessonFormula } from './LessonFormula'
 
 export function Lesson(props) {
-  const { name } = props
+  const { lessonObj, name, renderName } = props
 
   const lessonList = []
-  const lessonObj = nodeData[name]
+
+  if (renderName) {
+    lessonList.push(<h2>{name}</h2>)
+  }
 
   if (lessonObj && lessonObj.lesson) {
     lessonObj.lesson.forEach((obj) => {
