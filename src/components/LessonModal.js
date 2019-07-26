@@ -16,7 +16,7 @@ export function LessonModal(props) {
       <Modal isOpen={isOpen}>
         <ModalHeader toggle={toggle}>{lessonName}</ModalHeader>
         <ModalBody>
-          <Lesson renderName name={lessonName} lessonObj={lessonObj} />
+          <Lesson name={lessonName} lessonObj={lessonObj} />
         </ModalBody>
       </Modal>
     </div>
