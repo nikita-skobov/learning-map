@@ -15,10 +15,12 @@ import {
   Container,
 } from 'reactstrap'
 import Textarea from 'react-textarea-autosize'
+// eslint-disable-next-line
+import yaml from 'js-yaml'
 
 import './Editor.css'
 import { Lesson } from './Lesson'
-import { arraysEqual } from '../utilities'
+import { arraysEqual, downloadFile } from '../utilities'
 
 const noop = () => null
 const mySep = () => <span style={{ width: '100%' }} />
@@ -112,6 +114,7 @@ export default class Editor extends Component {
     }
 
     this.onUpdate = this.onUpdate.bind(this)
+    this.submit = this.submit.bind(this)
 
     this.state = this.data
   }
@@ -128,6 +131,12 @@ export default class Editor extends Component {
     this.data = newData
   }
 
+  submit() {
+    const { name } = this.data
+    const lowerName = name.toLowerCase()
+    const dashed = lowerName.replace(/\s+/g, '-')
+    downloadFile(`${dashed}.yml`, yaml.safeDump(this.data), 'text/yaml')
+  }
 
   render() {
     const { name } = this.state
@@ -173,6 +182,7 @@ export default class Editor extends Component {
               <hr />
               <Lesson name={name} renderName lessonObj={this.state} />
               <hr />
+              <Button onClick={this.submit} color="primary" disabled={name === ''}>Submit</Button>
             </div>
           </div>
         </Row>

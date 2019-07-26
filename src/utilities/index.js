@@ -1,3 +1,5 @@
+/* global document */
+
 export function flushAllPromises() {
   return new Promise(resolve => setImmediate(resolve))
 }
@@ -21,4 +23,17 @@ export function arraysEqual(arr1, arr2) {
   }
 
   return true
+}
+
+export function downloadFile(filename, text, mime = 'text/plain') {
+  const element = document.createElement('a')
+  element.setAttribute('href', `data:${mime};charset=utf-8,${encodeURIComponent(text)}`)
+  element.setAttribute('download', filename)
+
+  element.style.display = 'none'
+  document.body.appendChild(element)
+
+  element.click()
+
+  document.body.removeChild(element)
 }
