@@ -164,8 +164,8 @@ export default class Editor extends Component {
             </AbstractEditor>
           </Col>
           <div className="col-xs-6 col-md-6">
-            <p>Preview: </p>
-            <div>
+            <div className="editor-preview">
+              <p>Preview: </p>
               <Lesson name={name} renderName lessonObj={this.state} />
             </div>
           </div>
