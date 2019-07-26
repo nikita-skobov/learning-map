@@ -17,12 +17,13 @@ import {
 import Textarea from 'react-textarea-autosize'
 
 import './Editor.css'
-import FormulaEditor from './FormulaEditor'
 import { Lesson } from './Lesson'
+import { arraysEqual } from '../utilities'
 
 const noop = () => null
 const mySep = () => <span style={{ width: '100%' }} />
 const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} /></Col>
+const myValAutoFormula = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" defaultValue="\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
 const mySelect = ({ onUpdate }) => (
   <Col xs="auto">
@@ -31,11 +32,6 @@ const mySelect = ({ onUpdate }) => (
       <option>A</option>
       <option>B</option>
     </Input>
-  </Col>
-)
-const myLabel = props => (
-  <Col className="editor-label" xs="3">
-    <Label {...props} />
   </Col>
 )
 const myDel = props => (
@@ -69,7 +65,7 @@ const kvForFormulaItem = (
   <KeyValueField
     keyComponent={noop}
     className="no-gutters row editor-kvf-small"
-    valueComponent={FormulaEditor}
+    valueComponent={myValAutoFormula}
     seperatorComponent={noop}
   />
 )
@@ -93,7 +89,7 @@ const mapForFormulaItem = (
 const myAdd1 = props => (
   <ButtonGroup className="w-100 mt-2">
     <Button outline onClick={() => { props.onUpdate({ text: '' }, mapForTextItem) }}>Add Text</Button>
-    <Button outline onClick={() => { props.onUpdate({ formula: '' }, mapForFormulaItem) }}>Add Formula</Button>
+    <Button outline onClick={() => { props.onUpdate({ formula: '\\LARGE \\mu = \\frac{\\sum\\limits_{\\small i=1}^{\\small N} x_i}{N}' }, mapForFormulaItem) }}>Add Formula</Button>
   </ButtonGroup>
 )
 const myList = props => (
@@ -112,17 +108,26 @@ export default class Editor extends Component {
     }
 
     this.onUpdate = this.onUpdate.bind(this)
+
+    this.state = this.data
   }
 
   onUpdate(newData) {
+    if (newData.name !== this.data.name) {
+      // name was updated, so rerender
+      this.setState(() => newData)
+    } else if (!arraysEqual(this.data.lesson, newData.lesson)) {
+      // the lesson was changed, so rerender
+      this.setState(() => newData)
+    }
+    // otherwise dont rerender
     this.data = newData
-
-    console.log('new data: ')
-    console.log(this.data)
   }
 
 
   render() {
+    const { name } = this.state
+
     return (
       <Container fluid className="mb-5">
         <Row noGutters>
@@ -161,7 +166,7 @@ export default class Editor extends Component {
           <div className="col-xs-6 col-md-6">
             <p>Preview: </p>
             <div>
-              <Lesson name="Population Mean" />
+              <Lesson name={name} renderName lessonObj={this.state} />
             </div>
           </div>
         </Row>
