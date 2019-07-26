@@ -6,7 +6,7 @@ Make sure you have node and npm installed. I recommend using [nvm](https://githu
 ```sh
 git clone https://github.com/nikita-skobov/learning-map.git
 cd learning-map
-npm install
+npm install --production
 node src/data/parseLessons.js
 # this parses the src/data/lessons folder and generates json
 # objects from the lesson yaml files.
