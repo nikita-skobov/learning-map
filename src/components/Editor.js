@@ -20,6 +20,7 @@ import yaml from 'js-yaml'
 import './Editor.css'
 import { addNodes } from '../actions/nodesActions'
 import { Lesson } from './Lesson'
+import PrereqSelect from './EditorPrereqSelect'
 import { arraysEqual, downloadFile } from '../utilities'
 
 const noop = () => null
@@ -28,6 +29,7 @@ const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-c
 const myValAutoText = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} defaultValue="An example text item. You can use ${}$ syntax to substitute katex rendering. (NOTE: the contents within brackets must begin with a \). Here is an example: ${\color{red} \mu}$" /></Col>
 const myValAutoFormula = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" defaultValue="\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
+const myPrereqs = ({ onUpdate }) => <PrereqSelect onUpdate={onUpdate} />
 const mySelect = ({ onUpdate }) => (
   <Col xs="auto">
     <Input onChange={onUpdate} type="select" name="select">
@@ -56,7 +58,7 @@ const myMap = props => (
       {...props}
       currentValue={{}}
       addKeyValueComponent={<CustomAdd fieldType="add-key-value" addType="Prerequisite" />}
-      keyValueComponent={<KeyValueField keyComponent={myVal} valueComponent={mySelect} deleteComponent={myDel} className="no-gutters row editor-kvf-small" />}
+      keyValueComponent={<KeyValueField keyComponent={myPrereqs} valueComponent={mySelect} deleteComponent={myDel} className="no-gutters row editor-kvf-small" />}
     />
   </Col>
 )
