@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   AbstractEditor,
   MapField,
@@ -17,6 +18,7 @@ import Textarea from 'react-textarea-autosize'
 import yaml from 'js-yaml'
 
 import './Editor.css'
+import { addNodes } from '../actions/nodesActions'
 import { Lesson } from './Lesson'
 import { arraysEqual, downloadFile } from '../utilities'
 
@@ -102,7 +104,7 @@ const myList = props => (
   <ListField {...props} deleteItemComponent={myDel2} addItemComponent={myAdd1} wrapListComponent={<Col />} valueComponent={mapForTextItem} listItemClass="no-gutters row editor-kvf-small" currentValue={[]} />
 )
 
-export default class Editor extends Component {
+export class Editor extends Component {
   constructor(props) {
     super(props)
 
@@ -113,6 +115,7 @@ export default class Editor extends Component {
       lesson: [],
     }
 
+    this.addNodes = props.addNodes
     this.onUpdate = this.onUpdate.bind(this)
     this.submit = this.submit.bind(this)
 
@@ -136,6 +139,11 @@ export default class Editor extends Component {
     const lowerName = name.toLowerCase()
     const dashed = lowerName.replace(/\s+/g, '-')
     downloadFile(`${dashed}.yml`, yaml.safeDump(this.data), 'text/yaml')
+    const nodeObj = {
+      [name]: this.data,
+    }
+    nodeObj[name].dependsOn = Object.keys(this.data.prerequisites)
+    this.addNodes(nodeObj)
   }
 
   render() {
@@ -190,3 +198,9 @@ export default class Editor extends Component {
     )
   }
 }
+
+const mapActionsToState = {
+  addNodes,
+}
+
+export default connect(undefined, mapActionsToState)(Editor)
