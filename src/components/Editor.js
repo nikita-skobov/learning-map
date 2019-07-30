@@ -117,6 +117,7 @@ export class Editor extends Component {
       lesson: [],
     }
 
+    this.nodeKeys = props.nodeKeys
     this.addNodes = props.addNodes
     this.onUpdate = this.onUpdate.bind(this)
     this.submit = this.submit.bind(this)
@@ -145,6 +146,14 @@ export class Editor extends Component {
       [name]: this.data,
     }
     nodeObj[name].dependsOn = Object.keys(this.data.prerequisites)
+
+    nodeObj[name].dependsOn.forEach((dep) => {
+      if (this.nodeKeys.indexOf(dep) === -1) {
+        // if the dependency is not found in the current node data,
+        // then add an empty node
+        nodeObj[dep] = {}
+      }
+    })
     this.addNodes(nodeObj)
   }
 
@@ -201,8 +210,15 @@ export class Editor extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    nodeKeys: Object.keys(state.nodes.data.data),
+    ...ownProps,
+  }
+}
+
 const mapActionsToState = {
   addNodes,
 }
 
-export default connect(undefined, mapActionsToState)(Editor)
+export default connect(mapStateToProps, mapActionsToState)(Editor)
