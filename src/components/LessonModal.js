@@ -2,13 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 
-import nodeData from '../data/nodeData.json'
 import { lessonClosed } from '../actions/lessonActions'
 import { Lesson } from './Lesson'
 
 
 export function LessonModal(props) {
-  const { isOpen, lessonClosed: toggle, lessonName } = props
+  const {
+    isOpen,
+    lessonClosed: toggle,
+    lessonName,
+    nodeData,
+  } = props
+
   const lessonObj = nodeData[lessonName]
 
   return (
@@ -23,7 +28,12 @@ export function LessonModal(props) {
   )
 }
 
-const mapStateToProps = state => state.lesson
+const mapStateToProps = (state) => {
+  return {
+    ...state.lesson,
+    nodeData: state.nodes.data.data,
+  }
+}
 const mapActionsToProps = {
   lessonClosed,
 }

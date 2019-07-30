@@ -5,7 +5,6 @@ import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 
 import { makeGraphFromData } from '../data/makeGraphFromData'
-import data from '../data/index'
 import { makeArrowSprite } from './CanvasUtils/arrow'
 import fillNodeMap from './CanvasUtils/fillNodeMap'
 import { makeCircleSprite, makeCircleText } from './CanvasUtils/circle'
@@ -15,6 +14,7 @@ import { lessonClosed, lessonSelected } from '../actions/lessonActions'
 export class Canvas extends Component {
   constructor(props) {
     super(props)
+    this.data = props.data
 
     // dispatch functions:
     this.lessonClosed = props.lessonClosed
@@ -86,11 +86,11 @@ export class Canvas extends Component {
     this.viewport.addChild(this.edgeContainer)
     this.viewport.addChild(this.verticeContainer)
 
-    if (data.formatted) {
-      this.initializeSprites(data.data)
+    if (this.data.formatted) {
+      this.initializeSprites(this.data.data)
     } else {
       makeGraphFromData({
-        data: data.data,
+        data: this.data.data,
       }, this.initializeSprites)
     }
 
@@ -188,4 +188,8 @@ const mapActionsToProps = {
   lessonSelected,
 }
 
-export default connect(undefined, mapActionsToProps)(Canvas)
+const mapStateToProps = (state) => {
+  return state.nodes
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(Canvas)

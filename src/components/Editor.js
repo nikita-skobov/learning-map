@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   AbstractEditor,
   MapField,
@@ -17,7 +18,9 @@ import Textarea from 'react-textarea-autosize'
 import yaml from 'js-yaml'
 
 import './Editor.css'
+import { addNodes } from '../actions/nodesActions'
 import { Lesson } from './Lesson'
+import PrereqSelect from './EditorPrereqSelect'
 import { arraysEqual, downloadFile } from '../utilities'
 
 const noop = () => null
@@ -26,6 +29,7 @@ const myValAuto = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-c
 const myValAutoText = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" onChange={onUpdate} defaultValue="An example text item. You can use ${}$ syntax to substitute katex rendering. (NOTE: the contents within brackets must begin with a \). Here is an example: ${\color{red} \mu}$" /></Col>
 const myValAutoFormula = ({ onUpdate }) => <Col><Textarea minRows={2} className="form-control" defaultValue="\LARGE \mu = \frac{\sum\limits_{\small i=1}^{\small N} x_i}{N}" onChange={onUpdate} /></Col>
 const myVal = ({ onUpdate }) => <Col><Input type="text" onChange={onUpdate} /></Col>
+const myPrereqs = ({ onUpdate }) => <PrereqSelect onUpdate={onUpdate} />
 const mySelect = ({ onUpdate }) => (
   <Col xs="auto">
     <Input onChange={onUpdate} type="select" name="select">
@@ -54,7 +58,7 @@ const myMap = props => (
       {...props}
       currentValue={{}}
       addKeyValueComponent={<CustomAdd fieldType="add-key-value" addType="Prerequisite" />}
-      keyValueComponent={<KeyValueField keyComponent={myVal} valueComponent={mySelect} deleteComponent={myDel} className="no-gutters row editor-kvf-small" />}
+      keyValueComponent={<KeyValueField keyComponent={myPrereqs} valueComponent={mySelect} deleteComponent={myDel} className="no-gutters row editor-kvf-small" />}
     />
   </Col>
 )
@@ -102,7 +106,7 @@ const myList = props => (
   <ListField {...props} deleteItemComponent={myDel2} addItemComponent={myAdd1} wrapListComponent={<Col />} valueComponent={mapForTextItem} listItemClass="no-gutters row editor-kvf-small" currentValue={[]} />
 )
 
-export default class Editor extends Component {
+export class Editor extends Component {
   constructor(props) {
     super(props)
 
@@ -113,6 +117,8 @@ export default class Editor extends Component {
       lesson: [],
     }
 
+    this.nodeKeys = props.nodeKeys
+    this.addNodes = props.addNodes
     this.onUpdate = this.onUpdate.bind(this)
     this.submit = this.submit.bind(this)
 
@@ -136,6 +142,19 @@ export default class Editor extends Component {
     const lowerName = name.toLowerCase()
     const dashed = lowerName.replace(/\s+/g, '-')
     downloadFile(`${dashed}.yml`, yaml.safeDump(this.data), 'text/yaml')
+    const nodeObj = {
+      [name]: this.data,
+    }
+    nodeObj[name].dependsOn = Object.keys(this.data.prerequisites)
+
+    nodeObj[name].dependsOn.forEach((dep) => {
+      if (this.nodeKeys.indexOf(dep) === -1) {
+        // if the dependency is not found in the current node data,
+        // then add an empty node
+        nodeObj[dep] = {}
+      }
+    })
+    this.addNodes(nodeObj)
   }
 
   render() {
@@ -190,3 +209,16 @@ export default class Editor extends Component {
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    nodeKeys: Object.keys(state.nodes.data.data),
+    ...ownProps,
+  }
+}
+
+const mapActionsToState = {
+  addNodes,
+}
+
+export default connect(mapStateToProps, mapActionsToState)(Editor)
