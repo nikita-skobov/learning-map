@@ -39,7 +39,7 @@
     "bootstrap": "^4.3.1",
     "cytoscape": "^3.8.1",
     "js-yaml": "^3.13.1",
-    "katex": "^0.10.2",
+    "katex": "^0.16.10",
     "pixi-viewport": "^4.0.1",
     "pixi.js": "^5.0.4",
     "react": "^16.8.6",
